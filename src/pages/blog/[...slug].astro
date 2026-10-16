@@ -33,18 +33,23 @@ const { Content } = await render(post);
 
   <style>
     time {
-      display: block;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
+      display: inline-block;
+      font-family: var(--mono);
+      color: var(--border);
+      background: var(--accent-2);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 0.2em 0.5em;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
     }
     .prose :global(h2) {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
     }
     .back {
       margin-top: 3rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      border-top: var(--border-width) solid var(--border);
     }
   </style>
 </BaseLayout>

@@ -1,25 +1,51 @@
-/* Minimal base styles for the whole site.
-   Kept intentionally small and dependency-free. */
+/* Colorful neo-brutalist base styles.
+   Loud colors, hard borders, offset shadows, big display type.
+   Still dependency-free. */
 
 :root {
-  --max-width: 42rem;
-  --text: #1a1a1a;
-  --muted: #666;
-  --accent: #2b6cb0;
-  --bg: #ffffff;
-  --border: #e5e5e5;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --max-width: 46rem;
+
+  /* Core palette */
+  --text: #0f0f0f;
+  --muted: #4a4a4a;
+  --bg: #fef3c7; /* warm paper yellow */
+  --surface: #ffffff;
+  --border: #0f0f0f;
+  --code-block: #85FF1A;
+
+  /* Popping accents */
+  --accent: #ff2e63; /* hot pink/red */
+  --accent-2: #00e0b8; /* electric teal */
+  --accent-3: #ffd400; /* vivid yellow */
+  --accent-4: #6c5ce7; /* violet */
+
+  /* Brutalist structure */
+  --border-width: 3px;
+  --shadow: 6px 6px 0 var(--border);
+  --shadow-sm: 4px 4px 0 var(--border);
+  --radius: 0; /* no rounding, ever */
+
+  /* Big, impactful type. Fallbacks are heavy system faces. */
+  --font: "Funnel Display", "Arial Black", "Helvetica Neue", Impact, sans-serif;
+  --font-display: "Space Grotesk", "Archivo Black", "Arial Black", Impact, sans-serif;
+  --mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #e8e8e8;
-    --muted: #a0a0a0;
-    --accent: #7cb3f0;
-    --bg: #16181c;
-    --border: #2c2f36;
+    --text: #f5f5f5;
+    --muted: #b8b8b8;
+    --bg: #15131f; /* deep violet-black */
+    --surface: #211d33;
+    --border: #f5f5f5;
+
+    --accent: #ff5c8a;
+    --accent-2: #2dffd5;
+    --accent-3: #ffe14d;
+    --accent-4: #a68cff;
+
+    --shadow: 6px 6px 0 var(--border);
+    --shadow-sm: 4px 4px 0 var(--border);
   }
 }
 
@@ -29,9 +55,11 @@
 
 html {
   font-family: var(--font);
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--text);
   background: var(--bg);
+  background-size: 2.5rem 2.5rem;
+  background-position: -1px -1px;
 }
 
 body {
@@ -41,32 +69,105 @@ body {
 main {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 2.5rem 1.25rem 4rem;
 }
 
-a {
-  color: var(--accent);
-}
-
+/* Big, in-your-face headings */
 h1,
 h2,
 h3 {
-  line-height: 1.25;
+  font-family: var(--font-display);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  margin-top: 2rem;
+}
+
+h1 {
+  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  color: var(--accent);
+  -webkit-text-stroke: 1px var(--border);
+  text-shadow: var(--shadow-sm);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  background: var(--accent-3);
+  color: var(--border);
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  font-weight: 500;
+}
+
+a {
+  color: var(--border);
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--accent-2);
+  padding: 0.05em 0.3em;
+  border: 2px solid var(--border);
+  box-shadow: 2px 2px 0 var(--border);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+a:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--border);
+  background: var(--accent-3);
+}
+
+a:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 pre {
   overflow-x: auto;
   padding: 1rem;
-  border-radius: 6px;
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 0.9rem;
 }
 
+/* Inline code shouldn't inherit the link-style box */
 code {
   font-family: var(--mono);
+  background: var(--accent-3);
+  color: var(--code-block);
+  padding: 0.05em 0.3em;
+  border: 2px solid var(--border);
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.25rem;
+  border-left: var(--border-width) solid var(--accent);
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  box-shadow: var(--shadow-sm);
 }

@@ -16,6 +16,12 @@ const { title, description = "A blog by Íñigo Cobián" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Funnel+Display:wght@300..800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
   <body>
@@ -33,28 +39,50 @@ const { title, description = "A blog by Íñigo Cobián" } = Astro.props;
     </footer>
 
     <style>
+      header {
+        background: var(--accent-4);
+        border-bottom: var(--border-width) solid var(--border);
+      }
       .site-nav {
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 1rem 1.25rem;
+        padding: 1.25rem;
         display: flex;
-        gap: 1.25rem;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border);
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
       }
+      /* The title is a bold brutalist slab, not a link-box */
       .site-title {
-        font-weight: 700;
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
         text-decoration: none;
-        color: var(--text);
+        color: #fff;
+        background: var(--border);
+        padding: 0.3em 0.6em;
+        border: 2px solid var(--border);
+        box-shadow: var(--shadow-sm);
         margin-right: auto;
+      }
+      .site-title:hover {
+        background: var(--accent);
       }
       .site-footer {
         max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 2rem 1.25rem;
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 0.9rem;
+        margin: 2rem auto 0;
+        padding: 1.5rem 1.25rem;
+        border: var(--border-width) solid var(--border);
+        box-shadow: var(--shadow);
+        background: var(--accent-3);
+        color: var(--border);
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+      .site-footer p {
+        margin: 0;
       }
     </style>
   </body>
