@@ -52,7 +52,7 @@ public class CoffeeMachine {
 
 
 ## Solución
-Hay distintas estrategias para eliminar nesteos excesivos. En el caso de las validaciones, la recomendación más habitual es que sean lo primero que se ejecuta. En el caso de abajo, hemos invertido la condición de tal modo que se compruebe si hay algún fallo que impida continuar y, en ese caso, mostramos un mensaje y terminamos la ejecución. Gracias a ello, aislamos la comprobación, salimos rápido en caso de fallo, y evitamos indentar el código.
+Usar la inversión de condición para extraer las validaciones y ejecutarlas al comienzo de la función. De ese modo, nos quedará el camino normal del código desacoplado y sin indentaciones extra.
 
 ```java
 public class CoffeeMachine {
