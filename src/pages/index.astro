@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Load published posts, newest first.
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title="Inigo Cobian — Blog">
+  <h1>Blog</h1>
+  <p>Notes, write-ups, and the occasional interactive experiment.</p>
+
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          <time datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString("en-GB", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </time>
+          <p class="summary">{post.data.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <style>
+    .post-list {
+      list-style: none;
+      padding: 0;
+    }
+    .post-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-list a {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+    .post-list time {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 0.15rem;
+    }
+    .summary {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+    }
+  </style>
+</BaseLayout>

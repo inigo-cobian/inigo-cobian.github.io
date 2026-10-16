@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "A blog by Inigo Cobian" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <nav class="site-nav">
+        <a href="/" class="site-title">Inigo Cobian</a>
+        <a href="/">Posts</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>&copy; {new Date().getFullYear()} Inigo Cobian</p>
+    </footer>
+
+    <style>
+      .site-nav {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 1rem 1.25rem;
+        display: flex;
+        gap: 1.25rem;
+        align-items: baseline;
+        border-bottom: 1px solid var(--border);
+      }
+      .site-title {
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--text);
+        margin-right: auto;
+      }
+      .site-footer {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem 1.25rem;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+    </style>
+  </body>
+</html>

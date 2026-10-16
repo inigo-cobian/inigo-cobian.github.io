@@ -1,0 +1,64 @@
+---
+// A self-contained interactive chart "island".
+//
+// How this stays lightweight: the <script> below is only sent to the browser
+// on pages that actually use this component. A plain text post ships zero JS;
+// a post that drops in <LineChart /> ships only the chart code. That is the
+// Astro islands model in practice.
+//
+// Props let each post pass its own data without touching the component.
+interface Props {
+  labels: string[];
+  data: number[];
+  label?: string;
+}
+
+const { labels, data, label = "Series" } = Astro.props;
+
+// A unique id so multiple charts can live on the same page.
+const canvasId = `chart-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class="chart">
+  <canvas id={canvasId} data-labels={JSON.stringify(labels)} data-values={JSON.stringify(data)} data-label={label}></canvas>
+</figure>
+
+<script>
+  import { Chart, registerables } from "chart.js";
+  Chart.register(...registerables);
+
+  // Find every chart canvas rendered by this component and initialise it.
+  const canvases = document.querySelectorAll<HTMLCanvasElement>("canvas[data-labels]");
+  canvases.forEach((canvas) => {
+    const labels = JSON.parse(canvas.dataset.labels ?? "[]");
+    const values = JSON.parse(canvas.dataset.values ?? "[]");
+    const label = canvas.dataset.label ?? "Series";
+
+    new Chart(canvas, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label,
+            data: values,
+            borderColor: "#2b6cb0",
+            backgroundColor: "rgba(43, 108, 176, 0.15)",
+            fill: true,
+            tension: 0.3,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+      },
+    });
+  });
+</script>
+
+<style>
+  .chart {
+    margin: 2rem 0;
+  }
+</style>
