@@ -13,6 +13,8 @@
   --border: #0f0f0f;
   --code-block: #85FF1A;
 
+  --site-logo: #FFD700;
+
   /* Popping accents */
   --accent: #ff2e63; /* hot pink/red */
   --accent-2: #00e0b8; /* electric teal */
@@ -35,13 +37,16 @@
   :root {
     --text: #f5f5f5;
     --muted: #b8b8b8;
-    --bg: #15131f; /* deep violet-black */
+    --bg: #1E1B2C;
     --surface: #211d33;
     --border: #f5f5f5;
+    --code-block: #E6F7FF;
+
+    --site-logo: #FFD700;
 
     --accent: #ff5c8a;
-    --accent-2: #2dffd5;
-    --accent-3: #ffe14d;
+    --accent-2: #007560;
+    --accent-3: #FF5500;
     --accent-4: #a68cff;
 
     --shadow: 6px 6px 0 var(--border);
